@@ -1,0 +1,10 @@
+name: Pipeline CI/CD
+
+on:
+  push:
+
+jobs:
+  CI:
+    uses: ./.github/workflows/ci.yml
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
