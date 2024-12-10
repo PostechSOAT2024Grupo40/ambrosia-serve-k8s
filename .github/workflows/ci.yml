@@ -44,6 +44,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
           role-duration-seconds: 1200
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
