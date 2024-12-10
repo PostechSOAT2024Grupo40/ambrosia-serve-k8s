@@ -1,10 +1,10 @@
 terraform {
+  cloud {
+    organization = "ambrosia-serve"
 
-  backend "s3" {
-    bucket  = "terraform-tfstate"
-    key     = "kubernetes/terraform.tfstate"
-    region  = "us-east-1"
-    encrypt = true
+    workspaces {
+      name = "postech-workspace"
+    }
   }
 
   required_providers {
