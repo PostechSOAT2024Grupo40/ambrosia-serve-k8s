@@ -11,41 +11,6 @@ desenvolvida como parte do desafio técnico do curso de Arquitetura de Software 
 O objetivo do sistema é oferecer uma solução moderna para gerenciar pedidos e melhorar a experiência de clientes em
 lanchonetes em rápida expansão.
 
-## Estrutura
-
-**Diagrama da infra**
-<p align="center">
-  <img src="docs/k8s.png" />
-</p>
-
-## Executando
-
-Para executar o projeto localmente utilizando Docker, siga as seguintes etapas:
-
-1. Clone o repositório:
-
-```shell
-git clone git@github.com:PostechSOAT2024Grupo40/ambrosia-serve-k8s.git && cd ambrosia-serve
-```
-
-2. Crie a infraestrutura kubernetes utilizando
-   o [minikube](https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Fx86-64%2Fstable%2Fbinary+download), instale
-   caso necessario:
-
-```shell
-minikube start
-```
-
-```shell
-kubectl apply -f infra/namespace.yml && kubectl apply -f infra/
-```
-
-3. Conecte-se ao serviço `ambrosia-server`:
-
-```shell
-minikube service ambrosia-server
-```
-
 ## Observações
 
 Este repositório é apenas para a infraestrutura Kubernetes. O código da aplicação Ambrosia Serve está disponível
