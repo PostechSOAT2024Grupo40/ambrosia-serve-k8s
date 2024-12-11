@@ -58,11 +58,11 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: |
-          terraform plan -no-color 
+        run: terraform plan -no-color 
           -var="access_key=${{secrets.AWS_ACCESS_KEY_ID}}"
           -var="secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}}"
           -var="token=${{secrets.AWS_SESSION_TOKEN}}"
+         
         continue-on-error: true
 
       - uses: actions/github-script@v7
