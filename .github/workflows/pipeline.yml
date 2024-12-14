@@ -122,3 +122,13 @@ jobs:
                 body: output
               })
             }
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+ 
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve 
+          -var="access_key=${{secrets.AWS_ACCESS_KEY_ID}}"
+          -var="secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}}"
+          -var="token=${{secrets.AWS_SESSION_TOKEN}}"
