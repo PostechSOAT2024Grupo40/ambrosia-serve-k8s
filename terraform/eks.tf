@@ -46,12 +46,24 @@ resource "aws_eks_access_entry" "eks_access_entry" {
 }
 
 
-resource "aws_eks_access_policy_association" "access_policy_association" {
+resource "aws_eks_access_policy_association" "access_policy_association_lab" {
   cluster_name = aws_eks_cluster.cluster.name
 
   # aws eks list-access-policies --output table
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
   principal_arn = var.lab_role_arn
+
+  access_scope {
+    type = "cluster"
+  }
+}
+
+resource "aws_eks_access_policy_association" "access_policy_association_voclabs" {
+  cluster_name = aws_eks_cluster.cluster.name
+
+  # aws eks list-access-policies --output table
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  principal_arn = var.voclabs_role_arn
 
   access_scope {
     type = "cluster"
