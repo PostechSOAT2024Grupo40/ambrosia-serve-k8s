@@ -1,6 +1,5 @@
 resource "aws_eks_cluster" "cluster" {
-  depends_on = [aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy, ]
-  name       = "ambrosia-serve-cluster"
+  name = "ambrosia-serve-cluster"
 
   access_config {
     authentication_mode = "API"
@@ -10,7 +9,7 @@ resource "aws_eks_cluster" "cluster" {
   version  = "1.31"
 
   vpc_config {
-    subnet_ids         = var.subnet_ids
+    subnet_ids = var.subnet_ids
     security_group_ids = [aws_security_group.sg.id]
   }
 }
@@ -40,14 +39,14 @@ resource "aws_eks_node_group" "node_group" {
 
 
 resource "aws_eks_access_entry" "eks_access_entry" {
-  cluster_name      = aws_eks_cluster.cluster.name
-  principal_arn     = var.lab_role_arn
+  cluster_name  = aws_eks_cluster.cluster.name
+  principal_arn = var.lab_role_arn
   kubernetes_groups = ["group-1"]
-  type              = "STANDARD"
+  type          = "STANDARD"
 }
 
 
-resource "aws_eks_access_policy_association" "example" {
+resource "aws_eks_access_policy_association" "access_policy_association" {
   cluster_name = aws_eks_cluster.cluster.name
 
   # aws eks list-access-policies --output table
