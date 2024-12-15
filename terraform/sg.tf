@@ -1,7 +1,8 @@
 resource "aws_security_group" "sg" {
+  depends_on  = [aws_vpc.ambrosia_serve_vpc]
   name        = "ambrosia-serve-sg"
   description = "Allow HTTP port 8000 and all outbound traffic"
-  vpc_id      = var.vpc_id
+  vpc_id      = aws_vpc.ambrosia_serve_vpc.id
 
   tags = {
     Name = "ambrosia-serve-sg"
@@ -9,7 +10,7 @@ resource "aws_security_group" "sg" {
 }
 
 
-resource "aws_vpc_security_group_ingress_rule" "allow_http_ipv4_8000" {
+resource "aws_vpc_security_group_ingress_rule" "allow_http_ipv4_80" {
   security_group_id = aws_security_group.sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
