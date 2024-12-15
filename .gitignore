@@ -1,7 +1,7 @@
-.vscode/*
+.vscode/
 .history/
 *.vsix
-.idea/*
+.idea/
 cmake-build-*/
 *.iws
 out/
