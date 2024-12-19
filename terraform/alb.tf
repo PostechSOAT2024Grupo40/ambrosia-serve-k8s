@@ -1,9 +1,10 @@
-resource "aws_lb" "alb" {
+resource "aws_alb" "alb" {
+  depends_on = [aws_security_group.sg, aws_subnet.subnet_private_a, aws_subnet.subnet_private_b]
   name                       = "production-alb"
   internal                   = true
   load_balancer_type         = "application"
   security_groups = [aws_security_group.sg.id]
-  subnets = [aws_subnet.subnet_private_a, aws_subnet.subnet_private_b]
+  subnets = [aws_subnet.subnet_private_a.id, aws_subnet.subnet_private_b.id]
   idle_timeout               = 60
   enable_deletion_protection = false
 
@@ -15,7 +16,7 @@ resource "aws_lb" "alb" {
 
 
 resource "aws_lb_listener" "listener" {
-  depends_on = [aws_lb.alb]
+  depends_on = [aws_alb.alb]
   load_balancer_arn = aws_alb.alb.arn
   port              = "80"
   protocol          = "HTTP"
