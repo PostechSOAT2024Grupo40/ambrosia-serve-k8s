@@ -3,7 +3,7 @@ resource "aws_eks_cluster" "cluster" {
   name       = "ambrosia-serve-cluster"
 
   access_config {
-    authentication_mode = "API"
+    authentication_mode = "API_AND_CONFIG_MAP"
   }
 
   role_arn = var.lab_role_arn
@@ -19,7 +19,7 @@ resource "aws_eks_cluster" "cluster" {
 resource "aws_eks_node_group" "node_group" {
   depends_on      = [aws_eks_cluster.cluster]
   cluster_name    = aws_eks_cluster.cluster.name
-  node_group_name = "ambrosia-serve-node-group"
+  node_group_name = "ambrosia-serve"
   node_role_arn   = var.lab_role_arn
   subnet_ids      = toset([aws_subnet.subnet_private_a.id, aws_subnet.subnet_private_b.id])
 
@@ -41,21 +41,16 @@ resource "aws_eks_node_group" "node_group" {
 
 
 resource "aws_eks_access_entry" "eks_access_entry" {
-  depends_on        = [aws_eks_cluster.cluster]
-  cluster_name      = aws_eks_cluster.cluster.name
-  principal_arn     = var.lab_role_arn
-  kubernetes_groups = ["group-1"]
-  type              = "STANDARD"
+  depends_on    = [aws_eks_cluster.cluster]
+  cluster_name  = aws_eks_cluster.cluster.name
+  principal_arn = var.voclabs_role_arn
+  kubernetes_groups = ["ambrosia-serve"]
 }
 
-
-resource "aws_eks_access_policy_association" "access_policy_association_lab" {
-  depends_on   = [aws_eks_cluster.cluster]
-  cluster_name = aws_eks_cluster.cluster.name
-
-  # aws eks list-access-policies --output table
+resource "aws_eks_access_policy_association" "voclabs_access_policy_association" {
+  cluster_name  = aws_eks_cluster.cluster.name
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-  principal_arn = var.lab_role_arn
+  principal_arn = var.voclabs_role_arn
 
   access_scope {
     type = "cluster"
