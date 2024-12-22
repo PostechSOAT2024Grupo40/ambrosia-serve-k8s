@@ -41,9 +41,9 @@ resource "aws_eks_node_group" "node_group" {
 
 
 resource "aws_eks_access_entry" "eks_access_entry" {
-  depends_on    = [aws_eks_cluster.cluster]
-  cluster_name  = aws_eks_cluster.cluster.name
-  principal_arn = var.voclabs_role_arn
+  depends_on        = [aws_eks_cluster.cluster]
+  cluster_name      = aws_eks_cluster.cluster.name
+  principal_arn     = var.voclabs_role_arn
   kubernetes_groups = ["ambrosia-serve"]
 }
 

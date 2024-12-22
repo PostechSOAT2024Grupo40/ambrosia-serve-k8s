@@ -10,6 +10,15 @@ output "vpc_arn" {
   value = aws_vpc.ambrosia_serve_vpc.arn
 }
 
+output "vpc_id" {
+  value = aws_vpc.ambrosia_serve_vpc.id  
+}
+
+output "vpc_cidr" {
+  value = aws_vpc.ambrosia_serve_vpc.cidr_block
+  
+}
+
 output "subnet_public_a_id" {
   value = aws_subnet.subnet_public_a.id
 }
@@ -24,6 +33,22 @@ output "subnet_private_a_id" {
 
 output "subnet_private_b_id" {
   value = aws_subnet.subnet_private_b.id
+}
+
+output "subnet_private_a_az" {
+  value = aws_subnet.subnet_private_a.availability_zone
+}
+
+output "subnet_private_b_az" {
+  value = aws_subnet.subnet_private_b.availability_zone
+}
+
+output "subnet_public_a_az" {
+  value = aws_subnet.subnet_public_a.availability_zone
+}
+
+output "subnet_public_b_az" {
+  value = aws_subnet.subnet_public_b.availability_zone
 }
 
 output "security_group_id" {
