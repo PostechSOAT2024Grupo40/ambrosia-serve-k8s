@@ -23,8 +23,8 @@ output "security_group_id" {
   value = aws_security_group.sg.id
 }
 
-output "alb_http_arn" {
-  value = aws_lb_listener.listener.arn
+output "alb_dns" {
+  value = aws_alb.alb.dns_name
 }
 
 output "lab_role_arn" {
