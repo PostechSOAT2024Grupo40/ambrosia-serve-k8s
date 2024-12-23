@@ -1,10 +1,9 @@
 resource "aws_alb" "alb" {
-  depends_on                 = [aws_security_group.sg, aws_subnet.subnet_private_a, aws_subnet.subnet_private_b]
   name                       = "production-alb"
   internal                   = true
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.sg.id]
-  subnets                    = [aws_subnet.subnet_private_a.id, aws_subnet.subnet_private_b.id]
+  subnets                    = ["subnet-07a2bee2a3e08594e", "subnet-0bb9852652d96a262"]
   idle_timeout               = 60
   enable_deletion_protection = false
 
@@ -33,7 +32,7 @@ resource "aws_lb_target_group" "tg" {
   target_type = "instance"
   protocol    = "HTTP"
 
-  vpc_id = aws_vpc.ambrosia_serve_vpc.id
+  vpc_id = data.aws_vpc.ambrosia_serve_vpc.id
 
   health_check {
     path    = "/health"
