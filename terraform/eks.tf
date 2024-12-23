@@ -9,7 +9,7 @@ resource "aws_eks_cluster" "cluster" {
   version  = "1.31"
 
   vpc_config {
-    subnet_ids         = ["subnet-07a2bee2a3e08594e", "	"]
+    subnet_ids         = ["subnet-07a2bee2a3e08594e", "subnet-0bb9852652d96a262"]
     security_group_ids = [aws_security_group.sg.id]
   }
 }
