@@ -1,6 +1,5 @@
 resource "aws_eks_cluster" "cluster" {
-  depends_on = [aws_subnet.subnet_private_a, aws_subnet.subnet_private_b]
-  name       = "ambrosia-serve-cluster"
+  name = "ambrosia-serve-cluster"
 
   access_config {
     authentication_mode = "API_AND_CONFIG_MAP"
@@ -10,7 +9,7 @@ resource "aws_eks_cluster" "cluster" {
   version  = "1.31"
 
   vpc_config {
-    subnet_ids         = [aws_subnet.subnet_private_a.id, aws_subnet.subnet_private_b.id]
+    subnet_ids         = var.subnets_id
     security_group_ids = [aws_security_group.sg.id]
   }
 }
@@ -21,7 +20,7 @@ resource "aws_eks_node_group" "node_group" {
   cluster_name    = aws_eks_cluster.cluster.name
   node_group_name = "ambrosia-serve"
   node_role_arn   = var.lab_role_arn
-  subnet_ids      = toset([aws_subnet.subnet_private_a.id, aws_subnet.subnet_private_b.id])
+  subnet_ids      = var.subnets_id
 
   scaling_config {
     desired_size = 1
